@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
     htmlreplace = require('gulp-html-replace'),
     htmlmin = require('gulp-htmlmin'),
+    uglify = require('gulp-uglify'),
     imagemin = require('gulp-imagemin'),
     del = require('del');
 
@@ -16,6 +17,7 @@ gulp.task('minify-images', ['clean'], function() {
 
 gulp.task('scripts', ['clean'], function() {
   return gulp.src('js/*')
+    .pipe(uglify())
     .pipe(gulp.dest('dist/js'));
 });
 
