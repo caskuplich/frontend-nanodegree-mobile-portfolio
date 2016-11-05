@@ -1,55 +1,59 @@
-## Website Performance Optimization portfolio project
+# Website Performance Optimization Portfolio Project
 
-Your challenge, if you wish to accept it (and we sure hope you will), is to optimize this online portfolio for speed! In particular, optimize the critical rendering path and make this page render as quickly as possible by applying the techniques you've picked up in the [Critical Rendering Path course](https://www.udacity.com/course/ud884).
+## Installation
 
-To get started, check out the repository and inspect the code.
+- Install [Node.js](https://nodejs.org/).
+- Install [gulp](http://gulpjs.com/) globally:
 
-### Getting started
+      $ npm install --global gulp-cli
 
-####Part 1: Optimize PageSpeed Insights score for index.html
+- Run `npm install` at the root directory of the project to install
+dependencies:
 
-Some useful tips to help you get started:
+      $ npm install
 
-1. Check out the repository
-1. To inspect the site on your phone, you can run a local server
+- Run gulp to build the project:
 
-  ```bash
-  $> cd /path/to/your-project-folder
-  $> python -m SimpleHTTPServer 8080
-  ```
+      $ gulp
 
-1. Open a browser and visit localhost:8080
-1. Download and install [ngrok](https://ngrok.com/) to the top-level of your project directory to make your local server accessible remotely.
+  The build result is stored in the `dist/` directory.
 
-  ``` bash
-  $> cd /path/to/your-project-folder
-  $> ./ngrok http 8080
-  ```
+## Accessing the Portfolio and Pizzeria pages
 
-1. Copy the public URL ngrok gives you and try running it through PageSpeed Insights! Optional: [More on integrating ngrok, Grunt and PageSpeed.](http://www.jamescryer.com/2014/06/12/grunt-pagespeed-and-ngrok-locally-testing/)
+Open the `dist/index.html` in your browser to access the portfolio page. The
+pizzeria page can be accessed from the link in the portfolio or directly at
+`dist/views/pizza.html`.
 
-Profile, optimize, measure... and then lather, rinse, and repeat. Good luck!
+## PageSpeed Insights Evaluation
 
-####Part 2: Optimize Frames per Second in pizza.html
+This project is hosted on [GitHub Pages](https://pages.github.com/). So enter
+the following URL to evaluate the portfolio page on
+[PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/):
 
-To optimize views/pizza.html, you will need to modify views/js/main.js until your frames per second rate is 60 fps or higher. You will find instructive comments in main.js.
+    https://caskuplich.github.io/frontend-nanodegree-mobile-portfolio/dist/
 
-You might find the FPS Counter/HUD Display useful in Chrome developer tools described here: [Chrome Dev Tools tips-and-tricks](https://developer.chrome.com/devtools/docs/tips-and-tricks).
+## Optimizations
 
-### Optimization Tips and Tricks
-* [Optimizing Performance](https://developers.google.com/web/fundamentals/performance/ "web performance")
-* [Analyzing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/analyzing-crp.html "analyzing crp")
-* [Optimizing the Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/optimizing-critical-rendering-path.html "optimize the crp!")
-* [Avoiding Rendering Blocking CSS](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-blocking-css.html "render blocking css")
-* [Optimizing JavaScript](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/adding-interactivity-with-javascript.html "javascript")
-* [Measuring with Navigation Timing](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/measure-crp.html "nav timing api"). We didn't cover the Navigation Timing API in the first two lessons but it's an incredibly useful tool for automated page profiling. I highly recommend reading.
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/eliminate-downloads.html">The fewer the downloads, the better</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/optimize-encoding-and-transfer.html">Reduce the size of text</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/image-optimization.html">Optimize images</a>
-* <a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/http-caching.html">HTTP caching</a>
+### Portfolio
 
-### Customization with Bootstrap
-The portfolio was built on Twitter's <a href="http://getbootstrap.com/">Bootstrap</a> framework. All custom styles are in `dist/css/portfolio.css` in the portfolio repo.
+#### index.html
 
-* <a href="http://getbootstrap.com/css/">Bootstrap's CSS Classes</a>
-* <a href="http://getbootstrap.com/components/">Bootstrap's Components</a>
+- Added `media="print"` attribute on the link to `print.css` file at line 28.
+- Inlined the `style.css` using the `gulp-html-replace` plugin (lines 25-27).
+- Moved the Google Analytics JavaScript code to the bottom of the page (lines
+  76-85). Changed `analytics.js` URL to use HTTPS.
+- Loaded `Open Sans` Google Font using the
+  [Web Font Loader](https://github.com/typekit/webfontloader) library (lines
+  10-23).
+- Scaled down `views/images/pizzeria.jpg` to 100px width using
+  [Gimp](https://www.gimp.org/) and stored it in `img/` directory. Changed the
+  pizzeria `img` tag `src` to `img/pizzeria.jpg` (line 65).
+- Minified scripts, images, and the `index.html` with gulp:
+  - The scripts were minified with the `gulp-uglify` plugin. See the `scripts`
+    task (line 18 of the `gulpfile.js`).
+  - The images were minified with the `gulp-imagemin` plugin. See the
+    `minify-images` task (line 12 of the `gulpfile.js`).
+  - Before the HTML minification, the `style.css` was inlined in `index.html` by
+    using the `gulp-html-replace` plugin. Then the `gulp-htmlmin` was used to
+    minify `index.html` file. See the `build` task (line 29 of the
+    `gulpfile.js`).
