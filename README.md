@@ -5,16 +5,22 @@
 - Install [Node.js](https://nodejs.org/).
 - Install [gulp](http://gulpjs.com/) globally:
 
-      $ npm install --global gulp-cli
+```
+$ npm install --global gulp-cli
+```
 
 - Run `npm install` at the root directory of the project to install
 dependencies:
 
-      $ npm install
+```
+$ npm install
+```
 
 - Run gulp to build the project:
 
-      $ gulp
+```
+$ gulp
+```
 
   The build result is stored in the `dist/` directory.
 
@@ -30,7 +36,9 @@ This project is hosted on [GitHub Pages](https://pages.github.com/). So enter
 the following URL to evaluate the portfolio page on
 [PageSpeed Insights](https://developers.google.com/speed/pagespeed/insights/):
 
-    https://caskuplich.github.io/frontend-nanodegree-mobile-portfolio/dist/
+```
+https://caskuplich.github.io/frontend-nanodegree-mobile-portfolio/dist/
+```
 
 ## Optimizations
 
@@ -57,3 +65,23 @@ the following URL to evaluate the portfolio page on
     using the `gulp-html-replace` plugin. Then the `gulp-htmlmin` was used to
     minify `index.html` file. See the `build` task (line 29 of the
     `gulpfile.js`).
+
+### Pizzeria Page
+
+#### views/js/main.js
+
+- Reduced the number of background sliding pizzas created after the page loads
+  (line 524).
+- Moved the calculation of scroll distance from the top out of the for loop in
+  `updatePositions` function (line 501).
+- Removed the function `determineDx` and used percentages to change the pizzas
+  size in `changePizzaSizes` function (lines 422-466).
+- Moved the `changeSliderLabel` and `changePizzaSizes` definitions out of
+  `resizePizzas` function.
+
+#### views/css/style.css
+
+- Added `will-change: left` in `.mover` selector to improve sliding pizzas
+  paiting (line 35).
+- Removed `width` property from the `.mover` selector because it was overrided
+  by the element creation in `main.js` (line 32).
